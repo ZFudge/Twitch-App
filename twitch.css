@@ -106,7 +106,9 @@ input:checked ~ .options {
   display: flex;
   align-items: center;
   margin: 0 20px;
-  /* To prevent status text overflow*/
+  }
+
+#list p {
   display: inline-block;
   white-space: nowrap;
   text-overflow: ellipsis;
