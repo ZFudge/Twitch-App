@@ -9,15 +9,15 @@
     <header>
       <div id='option-container'>
         <div class='option-column'>
-          <input type='checkbox' checked>
+          <input type='checkbox' onclick='checkBox(this)' checked>
           <div class='options' id='all'>All</div>
         </div>
         <div class='option-column'>
-          <input type='checkbox'>
+          <input type='checkbox' onclick='checkBox(this)'>
           <div class='options'>Online</div>
         </div>
         <div class='option-column'>
-          <input type='checkbox'>
+          <input type='checkbox' onclick='checkBox(this)'>
           <div class='options' id='offline'>Offline</div>
         </div>
       </div>
@@ -27,6 +27,6 @@
       <ul id='list'></ul>
     </div>
   </div>
-  <script scr='twitch.js'></script>
+  <script src='twitch.js'></script>
 </body>
 </html>
