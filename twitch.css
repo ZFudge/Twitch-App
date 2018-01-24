@@ -27,6 +27,7 @@ body {
 }
 
 .options {
+  user-select: none;
   padding: 10px;
   position: relative;
   height: 100%;
@@ -59,6 +60,7 @@ input:checked ~ div {
 }
 
 #search {
+  user-select: none;
   background-color: transparent;
   border: none;
   padding: 10px;
