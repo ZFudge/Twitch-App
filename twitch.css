@@ -9,7 +9,7 @@ body {
 }
 
 #container {
-  width: 500px;
+  width: 700px;
   border-radius: 10px;
   position: relative;
   margin: 50px auto;
@@ -80,7 +80,7 @@ input:checked ~ .options {
 }
 
 #content {
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 #list {
@@ -90,7 +90,7 @@ input:checked ~ .options {
 
 #list li {
   display: grid;
-  grid-template-columns: 1fr 2fr 3fr;
+  grid-template-columns: 70px 180px 400px;
   transition-duration: 2s;
   margin: 25px 0;
   opacity: 0;
@@ -106,9 +106,15 @@ input:checked ~ .options {
   display: flex;
   align-items: center;
   margin: 0 20px;
+  /* To prevent status text overflow*/
+  display: inline-block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 #list a {
+  font-weight: bold;
   text-decoration: none;
   color: black;
 }
