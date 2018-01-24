@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Twitch App</title>
+  <link rel='stylesheet' type='text/css' href='twitch.css'>
+</head>
+<body>
+  <div id='container'>
+    <header>
+      <div id='option-container'>
+        <div class='option-column'>
+          <input type='checkbox' checked>
+          <div class='options' id='all'>All</div>
+        </div>
+        <div class='option-column'>
+          <input type='checkbox'>
+          <div class='options'>Online</div>
+        </div>
+        <div class='option-column'>
+          <input type='checkbox'>
+          <div class='options' id='offline'>Offline</div>
+        </div>
+      </div>
+      <input id='search' type='text' placeholder="Search">
+    </header>
+    <div id='content'>
+      <ul id='list'></ul>
+    </div>
+  </div>
+  <script scr='twitch.js'></script>
+</body>
+</html>
