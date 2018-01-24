@@ -16,21 +16,28 @@ function requestChannelData(channel,index) {
       const response = JSON.parse(xhr.response);
       twitch.responses.push(response);
       const li = document.createElement('li');
+
       const img = document.createElement('img');
       img.src = response.logo;
-      const span = document.createElement('span');
+
+      const nameSpan = document.createElement('span');
       const a = document.createElement('a');
-      a.href = `https://www.twitch.tv/${response.display_name}`;
+      a.href = response.url;
       a.innerHTML = response.display_name;
       a.target = '_blank';
-      span.appendChild(a);
+      nameSpan.appendChild(a);
+
+      const statusSpan = document.createElement('span');
+      statusSpan.innerHTML = `${response.game}: ${response.status}`;
+
       li.appendChild(img);
-      li.appendChild(span);
+      li.appendChild(nameSpan);
+      li.appendChild(statusSpan);
       twitch.list.appendChild(li);
       li.style.opacity = 1;
     }
   }
-  xhr.open("GET", `https://wind-bow.glitch.me/twitch-api/users/${channel}`);
+  xhr.open("GET", `https://wind-bow.glitch.me/twitch-api/channels/${channel}`);
   xhr.send();
 }
 
@@ -44,6 +51,8 @@ twitch.users.forEach(function(cur,ind) {
 //},1000);
 
 /*
+
+
 
 setTimeout(function() {
   twitch.responses.forEach(function(cur) {
