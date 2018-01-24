@@ -9,67 +9,46 @@ const twitch = {
   responses: []
 };
 
-function requestChannelData(channel,index) {
+function requestTwitchData(path,streamer,fn) {
   const xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (xhr.readyState === XMLHttpRequest.DONE) {
       const response = JSON.parse(xhr.response);
-      twitch.responses.push(response);
-      const li = document.createElement('li');
-
-      const img = document.createElement('img');
-      img.src = response.logo;
-
-      const nameSpan = document.createElement('span');
-      const a = document.createElement('a');
-      a.href = response.url;
-      a.innerHTML = response.display_name;
-      a.target = '_blank';
-      nameSpan.appendChild(a);
-
-      const statusSpan = document.createElement('span');
-      statusSpan.innerHTML = `${response.game}: ${response.status}`;
-
-      li.appendChild(img);
-      li.appendChild(nameSpan);
-      li.appendChild(statusSpan);
-      twitch.list.appendChild(li);
-      li.style.opacity = 1;
+      fn(response);
     }
   }
-  xhr.open("GET", `https://wind-bow.glitch.me/twitch-api/channels/${channel}`);
+  xhr.open("GET", `https://wind-bow.glitch.me/twitch-api/${path}/${streamer}`);
   xhr.send();
 }
 
-twitch.response
-twitch.users.forEach(function(cur,ind) {
-  requestChannelData(cur,ind);
+twitch.users.forEach(function(cur) {
+  requestTwitchData('streams', cur, function(firstResponse) {
+    (firstResponse.stream === null) ? requestTwitchData('channels', cur, function(secondResponse) {
+      handleStreams(secondResponse, secondResponse.logo, secondResponse.display_name, "Offline");
+    }) : handleStreams(firstResponse, firstResponse.stream.channel.logo, firstResponse.stream.channel.display_name, `${firstResponse.stream.channel.game}\: ${firstResponse.stream.channel.status}`);
+  });
 });
 
-//setTimeout(function(){
-//  Array.from(twitch.list.children).forEach(cur=>cur.style.opacity = 1)
-//},1000);
+function handleStreams(response, picture, name, status) {
+  twitch.responses.push(response);
+  const li = document.createElement('li');
 
-/*
+  const img = document.createElement('img');
+  img.src = picture;
 
+  const nameSpan = document.createElement('span');
+  const a = document.createElement('a');
+  a.href = response.url;
+  a.innerHTML = name;
+  a.target = '_blank';
+  nameSpan.appendChild(a);
 
+  const statusSpan = document.createElement('span');
+  statusSpan.innerHTML = status;
 
-setTimeout(function() {
-  twitch.responses.forEach(function(cur) {
-    const li = document.createElement('li');
-    const img = document.createElement('img');
-    img.src = cur.logo;
-    const span = document.createElement('span');
-    const a = document.createElement('a');
-    a.href = `https://www.twitch.tv/${cur.display_name}`;
-    a.innerHTML = cur.display_name;
-    a.target = '_blank';
-    span.appendChild(a);
-    li.appendChild(img);
-    li.appendChild(span);
-    twitch.list.appendChild(li);
-  });
-
-},0);
-
-*/
+  li.appendChild(img);
+  li.appendChild(nameSpan);
+  li.appendChild(statusSpan);
+  twitch.list.appendChild(li);
+  li.style.opacity = 1;
+}
