@@ -1,10 +1,34 @@
 function checkBox(input) {
-  Array.from(document.getElementsByTagName('input')).forEach(cur => cur.checked = false);
+  if (input.dataset.tab !== twitch.show ) {
+    Array.from(document.getElementsByTagName('input')).forEach(cur => cur.checked = false);
+
+    if (input.dataset.tab === 'all') {
+      twitch.list.online = 'grid';
+      twitch.list.offline = 'grid';
+    } else if (input.dataset.tab === 'online') {
+      twitch.list.online = 'grid';
+      twitch.list.offline = 'none';
+    } else {
+      twitch.list.offline = 'grid';
+      twitch.list.online = 'none';
+    }
+    twitch.show = input.dataset.tab;
+  };
   input.checked = true;
 }
 
 const twitch = {
-  list: document.getElementById('list'),
+  show: 'all',
+  list: {
+    body: document.getElementById('list'),
+    children: [],
+    set online(setting) {
+      this.children.filter(cur=>cur.hasAttribute('class')).forEach(cur=>cur.style.display=setting);
+    },
+    set offline(setting) {
+      this.children.filter(cur=>!cur.hasAttribute('class')).forEach(cur=>cur.style.display=setting);
+    }
+  },
   users: ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"],
   requestTwitchData: function(path,streamer,fn) {
     const xhr = new XMLHttpRequest();
@@ -19,6 +43,7 @@ const twitch = {
   },
   handleStreams: function(response, path, status) {
     const li = document.createElement('li');
+    if (status != "Offline") li.setAttribute('class', 'online');
 
     const img = document.createElement('img');
     img.src = path.logo;
@@ -39,8 +64,9 @@ const twitch = {
     li.appendChild(img);
     li.appendChild(nameSpan);
     li.appendChild(statusSpan);
-    twitch.list.appendChild(li);
+    twitch.list.body.appendChild(li);
     li.style.opacity = 1;
+    twitch.list.children.push(li);
   }
 };
 
