@@ -13,20 +13,20 @@
       <div id='outer-option-container'>
         <div id='option-container'>
           <div class='option-column'>
-            <input type='checkbox' onclick='checkBox(this)' checked>
+            <input type='checkbox' onclick='checkBox(this)' checked data-tab='all'>
             <div class='options' id='all'>All</div>
           </div>
           <div class='option-column'>
-            <input type='checkbox' onclick='checkBox(this)'>
+            <input type='checkbox' onclick='checkBox(this)' data-tab='online'>
             <div class='options'>Online</div>
           </div>
           <div class='option-column'>
-            <input type='checkbox' onclick='checkBox(this)'>
+            <input type='checkbox' onclick='checkBox(this)' data-tab='offline'>
             <div class='options' id='offline'>Offline</div>
           </div>
         </div>
       </div>
-      <input id='search' type='text' placeholder="Search">
+      <input id='search' type='text' placeholder="">
     </header>
     <div id='content'>
       <ul id='list'></ul>
