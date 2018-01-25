@@ -8,6 +8,7 @@
   <link rel='stylesheet' type='text/css' href='twitch.css'>
 </head>
 <body>
+  <h1>Twitch Streamers</h1>
   <div id='container'>
     <header>
       <div id='outer-option-container'>
@@ -26,7 +27,7 @@
           </div>
         </div>
       </div>
-      <input id='search' type='text' placeholder="">
+      <input id='search' type='text' placeholder="Search" oninput='search(this.value)'>
     </header>
     <div id='content'>
       <ul id='list'></ul>
