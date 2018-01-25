@@ -1,20 +1,35 @@
 function checkBox(input) {
   if (input.dataset.tab !== twitch.show ) {
     Array.from(document.getElementsByTagName('input')).forEach(cur => cur.checked = false);
-
-    if (input.dataset.tab === 'all') {
-      twitch.list.online = 'grid';
-      twitch.list.offline = 'grid';
-    } else if (input.dataset.tab === 'online') {
-      twitch.list.online = 'grid';
-      twitch.list.offline = 'none';
-    } else {
-      twitch.list.offline = 'grid';
-      twitch.list.online = 'none';
-    }
+    setList(input.dataset.tab);
     twitch.show = input.dataset.tab;
   };
   input.checked = true;
+}
+
+function setList(val) {
+  if (val === 'all') {
+    twitch.list.online = twitch.list.offline = 'grid';
+  } else if (val === 'online') {
+    twitch.list.online = 'grid';
+    twitch.list.offline = 'none';
+  } else if (val === 'offline') {
+    twitch.list.offline = 'grid';
+    twitch.list.online = 'none';
+  } else {
+    twitch.list.offline = twitch.list.online = 'none';
+  }
+}
+
+function search(text) {
+  if (text === '') {
+    setList(twitch.show);
+  } else {
+    setList(text);
+    twitch.list.children.forEach(function(cur) {
+    	if (cur.children[1].innerText.toLowerCase().includes(text)) cur.style.display = 'grid';
+    });
+  }
 }
 
 const twitch = {
