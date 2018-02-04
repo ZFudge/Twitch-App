@@ -22,14 +22,10 @@ function setList(val) {
 }
 
 function search(text) {
-  if (text === '') {
-    setList(twitch.show);
-  } else {
-    setList(text);
-    twitch.list.children.forEach(function(cur) {
-    	if (cur.children[1].innerText.toLowerCase().includes(text)) cur.style.display = 'grid';
-    });
-  }
+  (text.replace(/ /ig, '') === '') ? setList(twitch.show) : (
+      setList(text),
+      twitch.list.children.forEach((cur) => (cur.children[1].innerText.toLowerCase().includes(text)) ? cur.style.display = 'grid' : null)
+    )
 }
 
 const twitch = {
